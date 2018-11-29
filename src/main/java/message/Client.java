@@ -24,7 +24,7 @@ public class Client {
 	private static Scanner scanner;
 	private static String userName;
 	private static int initial_value = 0;
-	private MessageComparator messageComparator;
+	
 	private static int current_pid;
 
 	Client(String name) {
@@ -33,7 +33,7 @@ public class Client {
 		scanner = new Scanner(System.in);
 		
 
-		messageComparator = new MessageComparator();
+		
 		try {
 			socket = new DatagramSocket();
 			address = InetAddress.getByName("localhost");
@@ -55,6 +55,7 @@ public class Client {
 		public void run() {
 
 			boolean done = false;
+			MessageComparator messageComparator = new MessageComparator();
 			PriorityQueue<Message> queue = new PriorityQueue<Message>(messageComparator);
 			while (!done) {
 
