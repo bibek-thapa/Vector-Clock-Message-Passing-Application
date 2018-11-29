@@ -83,13 +83,13 @@ public class Client {
 							int myClockTopMsgTime = 0;
 		        			if(vectClock.clock.containsKey(Integer.toString(topMessage.pid))) { myClockTopMsgTime = vectClock.getTime(topMessage.pid); }
 							for (String key: topMessage.ts.clock.keySet()) {
-		        				if (Integer.parseInt(key) != current_pid && Integer.parseInt(key) != topMessage.pid) {
+		        				
 		        					if (vectClock.clock.containsKey(key)) {
 		        						if (topMessage.ts.getTime(Integer.parseInt(key)) > vectClock.getTime(Integer.parseInt(key)) ) { hasSeenAll = false;}
 		        					}else {
 		        						hasSeenAll = false;
 		        					}
-		        				}
+		        				
 		        			}	
 					
 						int topmessage_value = topMessage.ts.getTime(topMessage.pid);
@@ -127,14 +127,15 @@ public class Client {
 
 			System.out.println("Inside the sendMessageMethod");
 			String cmd = scanner.nextLine();
-			vectClock.tick(current_pid);
-			message = new Message(MessageTypes.CHAT_MSG, userName,current_pid, vectClock, cmd);
-			Message.sendMessage(message, socket, address, port);
-
 			if (cmd.equals("exit")) {
 				done = true;
 				System.exit(0);
 			}
+			vectClock.tick(current_pid);
+			message = new Message(MessageTypes.CHAT_MSG, userName,current_pid, vectClock, cmd);
+			Message.sendMessage(message, socket, address, port);
+
+			
 
 		}
 
